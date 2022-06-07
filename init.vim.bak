@@ -1,11 +1,81 @@
-lua vim.g.mapleader = ' '
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = " "
+" highlights the current line
+set cursorline
+set so=3
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en'
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" Turn on the Wild menu
+set wildmenu
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hidden
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+
 "---------------------------------------------------------
 " => My Stuff
 "---------------------------------------------------------
 :nnoremap <silent> <leader>ch :nohlsearch<Bar>:echo<CR>
 
-" vnoremap < <gv 
-" vnoremap > >gv
+vnoremap < <gv 
+vnoremap > >gv
 
 let g:NERDSpaceDelims = 1
 " Shows marker for spaces at indent
@@ -13,16 +83,17 @@ let g:indentLine_leadingSpaceEnabled = 1
 " In insert mode, C-v then u250B
 let g:indentLine_char = "┋"
 
-au FileType python map <silent>pb oimport pudb; pudb.set_trace()<esc>
-au FileType ruby map <silent>pb obinding.pry<esc>
-au FileType elixir map <silent>pb orequire IEx; IEx.pry<esc>
-au FileType javascript map <silent>pb odebugger;<esc>
+au FileType python map <silent> <leader>pb oimport pudb; pudb.set_trace()<esc>
+au FileType ruby map <silent> <leader>pb obinding.pry<esc>
+au FileType javascript map <silent> <leader>pb odebugger;<esc>
 
-" let g:rainbow_active = 1
-" :nnoremap <leader>bl :buffers<CR>:buffer<Space>
+let g:rainbow_active = 1
+:nnoremap <leader>bl :buffers<CR>:buffer<Space>
+nmap <leader>e :Explore<CR>
 let g:netrw_liststyle=3
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
 
+:nnoremap <leader>st :Startify <cr>
 
 :nnoremap <leader>o :Buffers<CR>
 
@@ -43,29 +114,34 @@ set title
 set mouse=a
 
 " Toggle between two buffers
-" tnoremap <Esc> <C-\><C-n>
-" tnoremap <M-[> <Esc>
-" tnoremap <C-v><Esc> <Esc>
-" tnoremap <leader><Tab> <C-\><C-n> :call ToggleBuffer()<CR>
-" tnoremap <leader>o <C-\><C-n> :Buffers<CR>
-" autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+function! ToggleBuffer()
+      b#
+  endfunction
+
+nmap <leader><Tab> :call ToggleBuffer()<CR>
+tnoremap <Esc> <C-\><C-n>
+tnoremap <M-[> <Esc>
+tnoremap <C-v><Esc> <Esc>
+tnoremap <leader><Tab> <C-\><C-n> :call ToggleBuffer()<CR>
+tnoremap <leader>o <C-\><C-n> :Buffers<CR>
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 " Need this so vim's use of Ag will respect .gitignore
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " fzf and rg Find command
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-file "~/.gitignore_global" --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-file "~/.gitignore_global" --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Uses the find() method defined below for uzing fzf and rg)
-" nnoremap <leader>ff :Find <C-R><C-W><CR>
-" nnoremap <leader>Ff :Files <CR>
-" nnoremap <C-p> :Files <CR>
+nnoremap <leader>ff :Find <C-R><C-W><CR>
+nnoremap <leader>Ff :Files <CR>
+nnoremap <C-p> :Files <CR>
 
 
 " Don’t reset cursor to start of line when moving around.
-" set nostartofline
+set nostartofline
 
-" nnoremap <leader>sc :Scratch <cr>
+nnoremap <leader>sc :Scratch <cr>
 "---------------------------------------------------------
 " => Colors and Fonts
 "---------------------------------------------------------
@@ -206,69 +282,69 @@ endfunction
 " Plugins
 "---------------------------------------------------------
 " Install Vim-plugged if not installed
-" if empty(glob('~/.vim/autoload/plug.vim'))
-  " silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    " \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  " autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
-" Plug 'tpope/vim-rails'
-" Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'tpope/vim-endwise'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'airblade/vim-gitgutter'
-" Plug 'mxw/vim-jsx'
-" " Plg '/usr/local/bin/fzf'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
-" Plug 'airblade/vim-rooter'
-" Plug 'bpolly/vim-ttr'
-" Plug 'terryma/vim-multiple-cursors'
-" Plug 'markonm/traces.vim'
-" Plug 'posva/vim-vue'
-" Plug 'tpope/vim-surround'
-" Plug 'ap/vim-css-color'
-" Plug 'tpope/vim-sleuth'
-" Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-fugitive'
-" Plug 'junegunn/vim-easy-align'
-" Plug 'elixir-lang/vim-elixir'
-" Plug 'jesseleite/vim-agriculture'
-" Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-rails'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-endwise'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'mxw/vim-jsx'
+" Plg '/usr/local/bin/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+Plug 'bpolly/vim-ttr'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'markonm/traces.vim'
+Plug 'posva/vim-vue'
+Plug 'tpope/vim-surround'
+Plug 'ap/vim-css-color'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-easy-align'
+Plug 'elixir-lang/vim-elixir'
+Plug 'jesseleite/vim-agriculture'
+Plug 'kchmck/vim-coffee-script'
 
-" " Colorschemes
-" Plug 'haishanh/night-owl.vim'
-" Plug 'tjammer/blayu.vim'
+" Colorschemes
+Plug 'haishanh/night-owl.vim'
+Plug 'tjammer/blayu.vim'
 
-" " My additions
-" " Initialize plugin system
-" " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'scrooloose/nerdcommenter'
-" Plug 'tpope/vim-vinegar'
-" Plug 'mhinz/vim-startify'
-" Plug 'mtth/scratch.vim'
-" Plug 'Yggdroot/indentLine'
-" Plug 'jremmen/vim-ripgrep'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'whatyouhide/vim-gotham'
-" Plug 'pangloss/vim-javascript'
-" Plug 'MaxMEllon/vim-jsx-pretty'
-" Plug 'majutsushi/tagbar'
-" " Plug 'neovim/nvim-lsp'
-" " Plug 'weilbith/nvim-lsp-smag'
-" " Plug 'haorenW1025/completion-nvim'
-" " Plug 'haorenW1025/diagnostic-nvim'
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'alvan/vim-closetag'
+" My additions
+" Initialize plugin system
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-vinegar'
+Plug 'mhinz/vim-startify'
+Plug 'mtth/scratch.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'jremmen/vim-ripgrep'
+Plug 'jiangmiao/auto-pairs'
+Plug 'whatyouhide/vim-gotham'
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'majutsushi/tagbar'
+Plug 'neovim/nvim-lsp'
+Plug 'weilbith/nvim-lsp-smag'
+Plug 'haorenW1025/completion-nvim'
+Plug 'haorenW1025/diagnostic-nvim'
+
+Plug 'alvan/vim-closetag'
 call plug#end()
+
 set number
 " Don't add a comment if opening a new line under a commented line
 set formatoptions-=ro
-let g:closetag_filenames = '*.html,*.xhtml,*.vue, *.eex'
+let g:closetag_filenames = '*.html,*.xhtml,*.vue'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
 
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
@@ -386,45 +462,30 @@ let g:airline_theme='dark'
 "----------------------------------------------------------
 " Rooter - Keep FZF current with project root
 "----------------------------------------------------------
- " autocmd BufEnter * :Rooter
-
-" set showtabline=1
-
-"-------------------------------
-" begin lua configs
-"-------------------------------
+ autocmd BufEnter * :Rooter
 
 
-"Sets completion 
-autocmd BufEnter * lua require'completion'.on_attach()
+" coc 
+nmap <silent> gd <Plug>(coc-definition)
 
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+" This shows a list of open buffers at the top and it's a shit feature so leave it off. 
+set showtabline=0
 
-" Avoid showing message extra message when using completion
-set shortmess+=c
-" lua
-lua require('languageservers')
-lua require('settings')
-lua require('plugins')
-lua require('search')
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
 
-nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fB <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>e <cmd>lua require('telescope.builtin').file_browser()<cr>
-nmap <leader>e :Explore<CR>
-nnoremap <leader>st :Startify <cr>
-function! ToggleBuffer()
-      b#
-  endfunction
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
 
-nmap <leader><Tab> :call ToggleBuffer()<CR>
-nnoremap <leader>sc :Scratch <cr>
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
 
-" stuff I'm unsure about
-autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
