@@ -62,79 +62,36 @@ return packer.startup(function(use)
   use "L3MON4D3/LuaSnip" --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
---  use {
---      "williamboman/nvim-lsp-installer",
---      {
---          "neovim/nvim-lspconfig",
---          config = function()
---              require("nvim-lsp-installer").setup {}
---              local lspconfig = require("lspconfig")
---              lspconfig.sumneko_lua.setup {}
---              lspconfig.elixirls.setup {
---                cmd = { "/Users/gignosko/bin/elixirls/language_server.sh" };
---              }
---          end
---      }
---  }
   use "neovim/nvim-lspconfig" -- enable LSP
- -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
 
   -- Change this
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
-
-
-
-  require'lspconfig'.sumneko_lua.setup {
-    on_attach = on_attach
-  }
-
-  require'lspconfig'.elixirls.setup {
-    on_attach = on_attach,
-    cmd = { "/Users/gignosko/bin/elixirls/language_server.sh" }
-  }
-
-  require'lspconfig'.solargraph.setup {
-    on_attach = on_attach
-  }
 
   use "nvim-telescope/telescope.nvim"
 
+  use {
+          'nvim-treesitter/nvim-treesitter',
+          run = ':TSUpdate'
+      }
   -- from my config
   use "tpope/vim-vinegar"
   use "tpope/vim-fugitive"
-  use "elixir-lang/vim-elixir"
+  use "airblade/vim-gitgutter"
+  use 'jiangmiao/auto-pairs'
+--  use "elixir-lang/vim-elixir"
+  use "p00f/nvim-ts-rainbow"
+  use 'arcticicestudio/nord-vim'
+  use 'terrortylor/nvim-comment'
+  use { "mhinz/vim-startify" }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

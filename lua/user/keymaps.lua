@@ -52,6 +52,7 @@ keymap("v", ">", ">gv", opts)
 -- Move text up and down
 keymap("v", "<A-j>", ":m .+1<CR>==", opts)
 keymap("v", "<A-k>", ":m .-2<CR>==", opts)
+
 -- This stops overwriting the register when you replace a word with the yanked word
 keymap("v", "p", '"_dP', opts)
 
@@ -71,6 +72,11 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 keymap("n", "<leader>ch", ":noh<CR>", opts)
 
-keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
 -- keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
 keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>o", "<cmd>Telescope buffers<cr>", opts)
+keymap("n", "<leader>cs", "<cmd>Telescope colorscheme<cr>", opts)
+
+-- Startify
+keymap("n", "<leader>st", "<cmd>Startify<cr>", opts)
