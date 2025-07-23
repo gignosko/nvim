@@ -62,16 +62,17 @@ return packer.startup(function(use)
   use "L3MON4D3/LuaSnip" --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
+  use '2kabhishek/termim.nvim'
   use "neovim/nvim-lspconfig" -- enable LSP
 
   -- Change this
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -91,7 +92,47 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
   use "p00f/nvim-ts-rainbow"
   use 'arcticicestudio/nord-vim'
   use 'terrortylor/nvim-comment'
+--  use 'tpope/vim-endwise'
   use { "mhinz/vim-startify" }
+  use "RRethy/nvim-treesitter-endwise"
+
+  -- endwise replacement in treesitter
+  require('nvim-treesitter.configs').setup {
+      endwise = {
+          enable = true,
+      },
+  }
+
+  -- nvim tabline
+  use {
+    'kdheepak/tabline.nvim',
+    config = function()
+      require'tabline'.setup {
+        -- Defaults configuration options
+        enable = true,
+        options = {
+        -- If lualine is installed tabline will use separators configured in lualine by default.
+        -- These options can be used to override those settings.
+          section_separators = {'', ''},
+          component_separators = {'', ''},
+          max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+          show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+          show_devicons = true, -- this shows devicons in buffer section
+          show_bufnr = false, -- this appends [bufnr] to buffer section,
+          show_filename_only = false, -- shows base filename only instead of relative path in filename
+          modified_icon = "+ ", -- change the default modified icon
+          modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
+          show_tabs_only = false, -- this shows only tabs instead of tabs + buffers
+        }
+      }
+      vim.cmd[[
+        set guioptions-=e " Use showtabline in gui vim
+        set sessionoptions+=tabpages,globals " store tabpages and globals in session
+      ]]
+    end,
+    requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
+  }
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

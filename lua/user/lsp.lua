@@ -24,16 +24,7 @@ end
 
 
 
-  require'lspconfig'.sumneko_lua.setup {
-    on_attach = on_attach,
-    settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { 'vim' }
-                }
-            }
-        }
-  }
+  require'lspconfig'.lua_ls.setup {}
 
   require'lspconfig'.elixirls.setup {
     on_attach = on_attach,
