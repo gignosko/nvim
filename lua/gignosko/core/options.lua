@@ -37,3 +37,5 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+vim.keymap.set("n", "<", "<gv", {noremap = true, silent = true})
