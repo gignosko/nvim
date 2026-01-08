@@ -27,12 +27,6 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 keymap.set("v", "<", "<gv", opts)
 keymap.set("v", ">", ">gv", opts)
 
--- zk
-keymap.set("n", "<leader>zn", "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", { desc = "Creates a new zk note" }, opts)
-keymap.set("n", "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { desc = "Open zk notes" }, opts)
-keymap.set("n", "<leader>zt", "<Cmd>ZkTags<CR>", { desc = "Search zk notes by tag" }, opts)
-keymap.set("n", "<leader>zf", "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", { desc = "Match by keyword" }, opts)
-keymap.set("v", "<leader>zt", ":'<,'>ZkMatch<CR>", { desc = "Match under visual selection" }, opts)
 
 local telescope_ignore_patterns = {
   "[^a-z]test[^a-z]"
