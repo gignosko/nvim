@@ -50,7 +50,9 @@ return {
         keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
         opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        -- keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+        keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 
         opts.desc = "Show LSP implementations"
         keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
@@ -78,6 +80,11 @@ return {
 
         opts.desc = "Show documentation for what is under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+
+      keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+
+      keymap.set('n', '<space>b', vim.lsp.buf.format, {desc = "Format Buffer"})
 
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
@@ -107,20 +114,24 @@ return {
       capabilities = capabilities,
     })
 
-  require'lspconfig'.solargraph.setup {}
-  require'lspconfig'.pyright.setup {}
-  require'lspconfig'.elixirls.setup{
-    cmd = { "/Users/gignosko/bin/elixir-ls/language_server.sh" },
-    -- on_attach = custom_attach, -- this may be required for extended functionalities of the LSP
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    elixirLS = {
-      dialyzerEnabled = false,
-      fetchDeps = false,
-    };
-  }
+  vim.lsp.enable('solargraph')
+  -- vim.lsp.enable('pyright')
+  -- vim.lsp.enable('ls_expert')
+  vim.lsp.enable('expert')
+  vim.lsp.enable('pylsp')
+  vim.lsp.enable('ts_ls')
+  -- require'lspconfig'.elixirls.setup{
+  --   cmd = { "/Users/gignosko/bin/elixir-ls/language_server.sh" },
+  --   -- on_attach = custom_attach, -- this may be required for extended functionalities of the LSP
+  --   capabilities = capabilities,
+  --   flags = {
+  --     debounce_text_changes = 150,
+  --   },
+  --   elixirLS = {
+  --     dialyzerEnabled = false,
+  --     fetchDeps = false,
+  --   };
+  -- }
 
     -- vim.lsp.config("lua_ls", {
     --   settings = {
