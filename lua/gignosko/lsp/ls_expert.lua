@@ -1,0 +1,2 @@
+-- Official Elixir LS
+-- The actual config file is in <root_dir>/after/lsp/expert.lua
