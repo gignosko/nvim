@@ -39,3 +39,22 @@ opt.splitbelow = true -- split horizontal window to the bottom
 opt.swapfile = false
 
 vim.keymap.set("n", "<", "<gv", {noremap = true, silent = true})
+
+-- word wrap on markdown
+-- vim.opt.formatoptions = 'jcroqlnt'
+-- vim.opt.textwidth = 80
+
+-- autocmds
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  pattern = { '*.md' },
+  callback = function()
+    vim.wo.wrap = true
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufWinLeave' }, {
+  pattern = { '*.md' },
+  callback = function()
+    vim.wo.wrap = false
+  end,
+})

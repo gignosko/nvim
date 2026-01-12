@@ -9,13 +9,12 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/vaults",
+        path = "~/vaults/",
       },
-      {
-        name = "work",
-        path = "~/vaults/work",
-      },
+      -- {
+      --   name = "work",
+      --   path = "~/vaults/work",
+      -- },
     },
   },
 }
-
